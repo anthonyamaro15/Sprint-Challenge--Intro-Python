@@ -76,10 +76,6 @@ print(e)
 print("Names and ages between 27 and 32:")
 
 
-def convert(list):
-    return tuple(i for i in list)
-
-
 age = [27, 28, 29, 30, 31, 32]
 f = [(hum.name, hum.age) for hum in humans if hum.age in age]
 
@@ -89,7 +85,7 @@ print(f)
 # list, except with all the names uppercase and the ages with 5 added to them.
 # The "humans" list should be unmodified.
 print("All names uppercase:")
-g = [f'{hum.name.upper()}, {hum.age + 5}' for hum in humans]
+g = [Human(hum.name.upper(), hum.age + 5) for hum in humans]
 print(g)
 
 # Write a list comprehension that contains the square root of all the ages.
