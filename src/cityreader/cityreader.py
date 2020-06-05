@@ -3,7 +3,7 @@
 import csv
 
 
-class Cities:
+class City:
     def __init__(self, name, lat, lon):
         self.name = name
         self.lat = lat
@@ -33,7 +33,7 @@ def cityreader(cities=[]):
         spamreader = csv.reader(csvfile)
         next(spamreader)
         for row in spamreader:
-            cities.append(Cities(row[0], float(row[3]), float(row[4])))
+            cities.append(City(row[0], float(row[3]), float(row[4])))
 
     return cities
 
@@ -76,24 +76,26 @@ for c in cities:
 # TODO Get latitude and longitude values from the user
 
 
-cordinates = input('Enter longitude and latidute :').split(',')
-to_floats = [float(cor) for cor in cordinates]
-# print(to_floats)
-
-
-def cityreader_stretch(cities):
+def cityreader_stretch(lat1, lon1, lat2, lon2, cites=[]):
     # within will hold the cities that fall within the specified region
     within = []
-    for cit in cities:
-        if cit.lon in to_floats or cit.lat in to_floats:
-            result = f'{cit.name},{cit.lat},{cit.lon}'
-            within.append(result)
-
     # TODO Ensure that the lat and lon valuse are all floats
     # Go through each city and check to see if it falls within
     # the specified coordinates.
 
+    if lat1 > lat2:
+        lat_1 = float(lat1)
+        lat_2 = float(lat2)
+    else:
+        lat_1 = float(lat2)
+        lat_2 = float(lat1)
+    if lon1 > lon2:
+        lon_1 = float(lon1)
+        lon_2 = float(lon2)
+    else:
+        lon_1 = float(lon2)
+        lon_2 = float(lon1)
+    within = [city for city in cities if (city.lat < lat_1) and (
+        city.lat > lat_2) and (city.lon < lon_1) and (city.lon > lon_2)]
+
     return within
-
-
-print(cityreader_stretch(cities))
